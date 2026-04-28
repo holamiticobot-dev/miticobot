@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
           <p className={styles.brandDesc}>
             Tu asistente inteligente para trámites del gobierno costarricense.
-            Rápido, gratuito y siempre disponible.
+            Rápido y siempre disponible.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default function Footer() {
             <li>
               <Link href="/tributacion">Tributación Digital</Link>
             </li>
-            <li>
+            {/*   <li>
               <Link href="/ccss">CCSS</Link>
             </li>
             <li>
@@ -57,7 +57,7 @@ export default function Footer() {
             </li>
             <li>
               <Link href="/mopt">MOPT</Link>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -65,15 +65,15 @@ export default function Footer() {
         <div>
           <p className={styles.colTitle}>Recursos</p>
           <ul className={styles.colLinks}>
-            <li>
+            {/*  <li>
               <Link href="/guias">Guías</Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/faq">Preguntas frecuentes</Link>
             </li>
-            <li>
+            {/*  <li>
               <Link href="/blog">Blog</Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/novedades">Novedades</Link>
             </li>

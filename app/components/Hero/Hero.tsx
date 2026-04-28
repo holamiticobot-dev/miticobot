@@ -20,8 +20,7 @@ export default function Hero() {
         {/* Descripción */}
         <p className={styles.desc}>
           MiTicoBot te ayuda a resolver dudas sobre Tributación Digital,
-          declaraciones, pagos y más trámites de Hacienda Costa Rica — rápido,
-          gratis y sin filas.
+          declaraciones, pagos y más trámites de Hacienda Costa Rica — rápido
         </p>
 
         {/* Botones */}
