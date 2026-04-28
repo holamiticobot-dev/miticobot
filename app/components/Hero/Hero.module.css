@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500&display=swap");
+
+:root {
+  --verde-selva: #2d5016;
+  --verde-hoja: #4a7c2f;
+  --verde-claro: #7cb95a;
+  --crema: #f5f0e8;
+  --cafe: #8b5e3c;
+  --cafe-claro: #c49a6c;
+}
+
+.hero {
+  background: var(--crema);
+  font-family: "DM Sans", sans-serif;
+  padding: 4rem 1.5rem 3rem;
+}
+
+.inner {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Badge de versión */
+.versionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(45, 80, 22, 0.08);
+  border: 1px solid rgba(45, 80, 22, 0.2);
+  color: var(--verde-hoja);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.3px;
+}
+
+.versionDot {
+  width: 6px;
+  height: 6px;
+  background: var(--verde-claro);
+  border-radius: 50%;
+}
+
+/* Título */
+.title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--verde-selva);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.titleAccent {
+  color: var(--cafe);
+}
+
+/* Descripción */
+.desc {
+  font-size: 16px;
+  color: #5a5a4a;
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 2rem;
+}
+
+/* Botones */
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.btnPrimary {
+  background: var(--verde-selva);
+  color: var(--crema);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  transition: background 0.18s;
+}
+
+.btnPrimary:hover {
+  background: var(--verde-hoja);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--verde-selva);
+  border: 1.5px solid rgba(45, 80, 22, 0.35);
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  transition: border-color 0.18s;
+}
+
+.btnSecondary:hover {
+  border-color: var(--verde-selva);
+}
+
+/* Chips de temas */
+.chips {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid rgba(45, 80, 22, 0.15);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #4a4a3a;
+}
+
+.chipIcon {
+  width: 16px;
+  height: 16px;
+  background: var(--verde-claro);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Divider decorativo */
+.divider {
+  width: 48px;
+  height: 3px;
+  background: var(--cafe-claro);
+  border-radius: 2px;
+  margin: 2.5rem auto 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1.25rem 2rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    max-width: 280px;
+  }
+}
