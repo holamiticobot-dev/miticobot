@@ -1,0 +1,30 @@
+.pageLayout {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  align-items: center;
+}
+
+.bannerTop,
+.bannerBottom {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .bannerTop,
+  .bannerBottom {
+    display: block;
+    padding: 1rem;
+    margin-right: 2rem;
+  }
+  .pageLayout {
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 1rem;
+
+    gap: 1rem;
+  }
+}

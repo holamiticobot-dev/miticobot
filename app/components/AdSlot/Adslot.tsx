@@ -6,52 +6,76 @@ interface AdSlotProps {
   type: AdSlotType;
 }
 
-const adConfig = {
-  sidebar: { label: "160 × 300", name: "Sidebar" },
-  banner: { label: "728 × 90 — Leaderboard", name: "Banner" },
-  square: { label: "300 × 250", name: "Square" },
-};
+const BotIcon = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
+      fill="#2D5016"
+      opacity="0.3"
+    />
+    <path
+      d="M8 12.5c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2.5z"
+      fill="#FAFAF7"
+    />
+    <circle cx="10.5" cy="11" r="1" fill="#2D5016" />
+    <circle cx="13.5" cy="11" r="1" fill="#2D5016" />
+    <path
+      d="M10 13.5h4"
+      stroke="#2D5016"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
 
 export default function AdSlot({ type }: AdSlotProps) {
-  const config = adConfig[type];
+  if (type === "banner") {
+    return (
+      <div className={styles.banner}>
+        <span className={styles.adTag}>Anuncio</span>
+        <div className={styles.bannerLeft}>
+          <div className={`${styles.icon} ${styles.bannerIcon}`}>
+            <BotIcon size={22} />
+          </div>
+          <div className={styles.bannerText}>
+            <h3>¿Querés anunciarte aquí?</h3>
+            <p>Llegá a miles de contadores y emprendedores costarricenses </p>
+          </div>
+        </div>
+        <button className={`${styles.cta} ${styles.bannerCta}`}>
+          Contáctanos
+        </button>
+      </div>
+    );
+  }
+
+  if (type === "sidebar") {
+    return (
+      <div className={styles.sidebar}>
+        <span className={styles.adTag}>Anuncio</span>
+        <div className={`${styles.icon} ${styles.sidebarIcon}`}>
+          <BotIcon size={26} />
+        </div>
+        <h3>¿Querés anunciarte aquí?</h3>
+        <p>Llegá a contadores y emprendedores ticos pc</p>
+        <button className={`${styles.cta} ${styles.sidebarCta}`}>
+          Contáctanos
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className={`${styles.adSlot} ${styles[type]}`}>
-      <span className={styles.adType}>{config.name}</span>
-      <div className={styles.adIcon}>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <rect
-            x="1"
-            y="1"
-            width="12"
-            height="12"
-            rx="2"
-            stroke="#2D5016"
-            strokeWidth="1.2"
-            opacity="0.4"
-          />
-          <rect
-            x="3"
-            y="3"
-            width="8"
-            height="3"
-            rx="1"
-            fill="#2D5016"
-            opacity="0.2"
-          />
-          <rect
-            x="3"
-            y="8"
-            width="5"
-            height="1.5"
-            rx="0.5"
-            fill="#2D5016"
-            opacity="0.15"
-          />
-        </svg>
+    <div className={styles.square}>
+      <span className={styles.adTag}>Anuncio</span>
+      <div className={`${styles.icon} ${styles.squareIcon}`}>
+        <BotIcon size={28} />
       </div>
-      <span>Google AdSense</span>
-      <span className={styles.adLabel}>{config.label}</span>
+      <h3>¿Querés anunciarte aquí?</h3>
+      <p>Llegá a miles de contadores y emprendedores costarricenses</p>
+      <button className={`${styles.cta} ${styles.squareCta}`}>
+        Contáctanos
+      </button>
     </div>
   );
 }

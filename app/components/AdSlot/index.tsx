@@ -1,1 +1,1 @@
-export { default } from "./Adslot";
+export { default } from "./AdSlot";
