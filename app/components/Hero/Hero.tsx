@@ -1,7 +1,10 @@
+"use client";
 import AdSlot from "../AdSlot";
+import { useRouter } from "next/navigation";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
+  const router = useRouter();
   return (
     <section className={styles.hero}>
       <div className={styles.inner}>
@@ -25,7 +28,12 @@ export default function Hero() {
 
         {/* Botones */}
         <div className={styles.actions}>
-          <button className={styles.btnPrimary}>Hacer una consulta</button>
+          <button
+            className={styles.btnPrimary}
+            onClick={() => router.push("/chat")}
+          >
+            Hacer una consulta
+          </button>
           <button className={styles.btnSecondary}>¿Cómo funciona?</button>
         </div>
 
