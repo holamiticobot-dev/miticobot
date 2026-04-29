@@ -1,9 +1,12 @@
+"use client";
 import Link from "next/link";
 import styles from "./Footer.module.css";
+import { useState } from "react";
+import TermsModal from "@/components/TermsModal";
 
 export default function Footer() {
   const year = new Date().getFullYear();
-
+  const [showTerms, setShowTerms] = useState(false);
   return (
     <footer className={styles.footer}>
       <div className={styles.footerTop}>
@@ -85,7 +88,9 @@ export default function Footer() {
           <p className={styles.colTitle}>Legal</p>
           <ul className={styles.colLinks}>
             <li>
-              <Link href="/terminos">Términos de uso</Link>
+              <button onClick={() => setShowTerms(true)}>
+                Términos de uso
+              </button>
             </li>
             <li>
               <Link href="/privacidad">Privacidad</Link>
@@ -116,6 +121,7 @@ export default function Footer() {
           </a>
         </span>
       </div>
+      {showTerms && <TermsModal onClose={() => setShowTerms(false)} />}
     </footer>
   );
 }

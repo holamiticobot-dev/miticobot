@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./Chat.module.css";
 
 type Message = {
@@ -69,9 +69,8 @@ export default function Chat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (temaInfo) {
-      setMessages([{ role: "bot", text: temaInfo.intro, time: getTime() }]);
-      setActiveChip(tema);
+    if (messages.length > 1) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     } else {
       setMessages([
         {
@@ -110,17 +109,23 @@ export default function Chat() {
     }, 1500);
   };
 
+  const router = useRouter();
   const handleChip = (chipTema: string) => {
     setActiveChip(chipTema);
     if (chipTema === "todos") {
-      window.location.href = "/chat";
+      router.push("/chat");
     } else {
-      window.location.href = `/chat?tema=${chipTema}`;
+      router.push(`/chat?tema=${chipTema}`);
     }
   };
-
   return (
-    <div style={{ background: "#f0ebe0", minHeight: "calc(100vh - 68px)" }}>
+    <div
+      style={{
+        background: "#f0ebe0",
+        height: "calc(100vh - 68px)",
+        overflow: "hidden",
+      }}
+    >
       <div className={styles.chatPage}>
         {/* Chat */}
         <div className={styles.chatContainer}>
@@ -143,8 +148,7 @@ export default function Chat() {
               </svg>
             </div>
             <div className={styles.chatHeaderInfo}>
-              <h2>MiTicoBot</h2>
-              <p>Asistente de trámites · Hacienda CR</p>
+              <p>Asistente de trámites</p>
             </div>
             <div className={styles.chatStatus}>
               <div className={styles.statusDot} />
