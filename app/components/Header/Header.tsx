@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
-
+import { useRouter } from "next/navigation";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const router = useRouter();
   return (
     <header className={styles.header}>
       <div className={styles.texture} />
@@ -52,9 +52,8 @@ export default function Header() {
           <Link href="/" className={styles.active}>
             Inicio
           </Link>
-          <Link href="/tramites">
-            Trámites <span className={styles.badge}>Nuevo</span>
-          </Link>
+          <Link href="/tramites">Trámites</Link>
+
           {/* <Link href="/hacienda">Hacienda CR</Link>
           <Link href="/ayuda">Ayuda</Link> */}
         </nav>
