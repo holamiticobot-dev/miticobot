@@ -137,10 +137,8 @@ export default function TermsModal({ onClose }: TermsModalProps) {
               <span className={styles.sectionNum}>6</span>
               Contacto
             </div>
-            <p>
-              Para consultas o solicitudes de eliminación de datos:{" "}
-              <strong>holamiticobot@gmail.com</strong>
-            </p>
+            <p>Para consultas o solicitudes de eliminación de datos: </p>
+            <strong>servicio@rodricode.com </strong>
           </div>
         </div>
 

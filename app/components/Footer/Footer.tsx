@@ -44,14 +44,14 @@ export default function Footer() {
 
         {/* Trámites */}
         <div>
-          <p className={styles.colTitle}>Trámites</p>
+          {/*  <p className={styles.colTitle}>Trámites</p> */}
           <ul className={styles.colLinks}>
-            <li>
+            {/*  <li>
               <Link href="/hacienda">Hacienda CR</Link>
             </li>
             <li>
               <Link href="/tributacion">Tributación Digital</Link>
-            </li>
+            </li> */}
             {/*   <li>
               <Link href="/ccss">CCSS</Link>
             </li>
