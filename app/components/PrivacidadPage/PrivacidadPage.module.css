@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500&display=swap");
+
+:root {
+  --verde-selva: #2d5016;
+  --verde-hoja: #4a7c2f;
+  --verde-claro: #7cb95a;
+  --crema: #f5f0e8;
+  --cafe-claro: #c49a6c;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 68px);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--verde-selva);
+  margin-bottom: 0.75rem;
+}
+
+.hero p {
+  font-size: 14px;
+  color: #5a5a4a;
+  max-width: 460px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.heroMeta {
+  font-size: 11px;
+  color: #999;
+  margin-top: 8px;
+  font-family: "DM Sans", sans-serif;
+}
+
+/* Law badge */
+.lawBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(45, 80, 22, 0.08);
+  border: 1px solid rgba(45, 80, 22, 0.15);
+  color: var(--verde-hoja);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  font-family: "DM Sans", sans-serif;
+}
+
+.lawBadgeWrap {
+  text-align: center;
+}
+
+/* Section */
+.section {
+  margin-bottom: 1rem;
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(45, 80, 22, 0.08);
+  transition: border-color 0.15s;
+}
+
+.section:hover {
+  border-color: rgba(45, 80, 22, 0.15);
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--verde-selva);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.sectionNum {
+  width: 22px;
+  height: 22px;
+  background: var(--verde-selva);
+  color: white;
+  border-radius: 5px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+  font-family: "DM Sans", sans-serif;
+  margin: 0;
+}
+
+.section p + p {
+  margin-top: 8px;
+}
+
+.section ul {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+  padding-left: 1.25rem;
+  margin-top: 6px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.section ul li {
+  margin-bottom: 4px;
+}
+
+.section strong {
+  color: var(--verde-selva);
+}
+
+/* Two columns */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.miniCard {
+  background: #faf8f4;
+  border: 1px solid rgba(45, 80, 22, 0.08);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.miniCard h4 {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--verde-selva);
+  margin-bottom: 4px;
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.miniCard p {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.5;
+  font-family: "DM Sans", sans-serif;
+}
+
+.badgeSoon {
+  font-size: 9px;
+  background: var(--cafe-claro);
+  color: var(--verde-selva);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Rights grid */
+.rightsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.rightItem {
+  background: #faf8f4;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #555;
+  font-family: "DM Sans", sans-serif;
+}
+
+.rightItem strong {
+  color: var(--verde-selva);
+  display: block;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+/* Contact box */
+.contactBox {
+  background: var(--verde-selva);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.contactBox p {
+  font-size: 13px;
+  color: rgba(245, 240, 232, 0.8);
+  margin: 0 0 4px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.contactBox a {
+  color: var(--cafe-claro);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.contactBox a:hover {
+  text-decoration: underline;
+}
+
+.contactBox small {
+  font-size: 11px;
+  color: rgba(245, 240, 232, 0.5);
+  font-family: "DM Sans", sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .twoCol,
+  .rightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 1.5rem 1rem;
+  }
+
+  .section {
+    padding: 1rem 1.25rem;
+  }
+}
