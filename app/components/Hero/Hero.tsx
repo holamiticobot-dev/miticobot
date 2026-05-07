@@ -35,7 +35,12 @@ export default function Hero() {
           >
             Hacer una consulta
           </button>
-          <button className={styles.btnSecondary}>¿Cómo funciona?</button>
+          <button
+            className={styles.btnSecondary}
+            onClick={() => router.push("/como-funciona")}
+          >
+            ¿Cómo funciona?
+          </button>
         </div>
 
         {/* Divider decorativo */}

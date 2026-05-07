@@ -9,9 +9,9 @@
 }
 
 .page {
-  max-width: 560px;
+  max-width: 580px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 2rem 10rem;
   min-height: calc(100vh - 68px);
 }
 
@@ -70,6 +70,7 @@
   background: white;
   outline: none;
   transition: border-color 0.15s;
+  margin: 13px -10px;
 }
 
 .field input:focus,
@@ -98,6 +99,8 @@
 /* Captcha */
 .captchaWrap {
   margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
 }
 
 /* Submit button */
@@ -206,6 +209,10 @@
   }
 
   .formCard {
-    padding: 1.5rem 1.25rem;
+    padding: 1.5rem 3rem;
+  }
+  .captchaWrap {
+    transform: scale(0.9);
+    transform-origin: left center;
   }
 }

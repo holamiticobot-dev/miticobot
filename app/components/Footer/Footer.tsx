@@ -96,7 +96,14 @@ export default function Footer() {
               <Link href="/privacidad">Privacidad</Link>
             </li>
             <li>
-              <Link href="/cookies">Cookies</Link>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("cookie_consent");
+                  window.location.reload();
+                }}
+              >
+                Cookies
+              </button>
             </li>
             <li>
               <Link href="/contacto">Contacto</Link>
