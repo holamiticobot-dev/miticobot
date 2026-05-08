@@ -144,6 +144,24 @@ export default function Chat() {
   return (
     /* FIX 1: pageWrapper controla el alto total en móvil */
     <div className={styles.pageWrapper} style={{ background: "#f0ebe0" }}>
+       {/*    <div className={styles.topicChips}>
+            {[
+              { key: "todos", label: "Todos los temas" },
+              { key: "d101", label: "D-101" },
+              { key: "tributacion", label: "Tributación Digital" },
+              { key: "factura", label: "Factura Electrónica" },
+              { key: "pagos", label: "Pagos y multas" },
+            ].map((chip) => (
+              <button
+                key={chip.key}
+                onClick={() => handleChip(chip.key)}
+                className={`${styles.topicChip} ${activeChip === chip.key ? styles.topicChipActive : ""}`}
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>  */}
+}
       <div className={styles.chatPage}>
         {/* Chat principal */}
         <div className={styles.chatContainer}>
