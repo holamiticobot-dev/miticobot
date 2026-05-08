@@ -91,22 +91,50 @@ export default function Chat() {
     const text = input.trim();
     if (!text) return;
 
-    setMessages((prev) => [...prev, { role: "user", text, time: getTime() }]);
+    const userMessage = { role: "user", text, time: getTime() };
+    const updatedMessages = [...messages, userMessage];
+
+    setMessages(updatedMessages);
     setInput("");
     setIsTyping(true);
 
-    // Aquí va la llamada a la API de Claude — por ahora respuesta de prueba
-    setTimeout(() => {
-      setIsTyping(false);
+    try {
+      // Convertir al formato que espera OpenAI
+      const openaiMessages = updatedMessages
+        .filter((m) => m.role === "user" || m.role === "bot")
+        .map((m) => ({
+          role: m.role === "bot" ? "assistant" : "user",
+          content: m.text,
+        }));
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: openaiMessages }),
+      });
+
+      const data = await res.json();
+
       setMessages((prev) => [
         ...prev,
         {
           role: "bot",
-          text: "Gracias por tu consulta. Pronto estaré conectado con la documentación oficial de Hacienda para darte la respuesta más precisa.",
+          text: data.reply ?? "No pude procesar tu consulta. Intentá de nuevo.",
           time: getTime(),
         },
       ]);
-    }, 1500);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: "Hubo un error al conectar. Verificá tu conexión e intentá de nuevo.",
+          time: getTime(),
+        },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const router = useRouter();
@@ -157,7 +185,7 @@ export default function Chat() {
           </div>
 
           {/* Chips */}
-          <div className={styles.topicChips}>
+          {/*   <div className={styles.topicChips}>
             {[
               { key: "todos", label: "Todos los temas" },
               { key: "d101", label: "D-101" },
@@ -173,7 +201,7 @@ export default function Chat() {
                 {chip.label}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* Mensajes */}
           <div className={styles.messages}>
@@ -236,7 +264,11 @@ export default function Chat() {
                   }
                 }}
               />
-              <button className={styles.sendBtn} onClick={sendMessage}>
+              <button
+                className={styles.sendBtn}
+                onClick={sendMessage}
+                disabled={isTyping}
+              >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"
