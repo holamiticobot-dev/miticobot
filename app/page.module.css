@@ -1,13 +1,21 @@
 .pageLayout {
   display: grid;
-  grid-template-columns: 160px 1fr 160px;
+  grid-template-columns: 1fr;
   gap: 2rem;
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
-  align-items: start;
+  align-items: center;
 }
 
+.pageLayout:has(> :nth-child(3)) {
+  grid-template-columns: 160px 1fr 160px;
+}
+
+.bannerTop,
+.bannerBottom {
+  display: none;
+}
 /* FIX: ocultar sidebars en desktop hasta tener AdSense aprobado */
 .pageLayout > :first-child,
 .pageLayout > :last-child {
@@ -15,9 +23,9 @@
 }
 
 /* FIX: Hero ocupa las 3 columnas cuando sidebars están ocultos */
-.pageLayout > :nth-child(2) {
+/* .pageLayout > :nth-child(2) {
   grid-column: 1 / -1;
-}
+} */
 
 .bannerTop,
 .bannerBottom {
@@ -34,12 +42,13 @@
   .pageLayout {
     grid-template-columns: 1fr;
     margin: 0;
-    padding: 0;
-    gap: 0;
+    padding: 1rem;
+    gap: 1rem;
   }
 
-  /* En móvil ya tiene grid de 1 columna, cancelar el span */
   .pageLayout > :nth-child(2) {
     grid-column: 1;
   }
 }
+
+/* En móvil ya tiene grid de 1 columna, cancelar el span */

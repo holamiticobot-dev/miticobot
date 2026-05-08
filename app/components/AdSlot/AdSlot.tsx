@@ -1,12 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import styles from "./AdSlot.module.css";
+
+const slotClasses: Record<AdSlotType, string> = {
+  banner: styles.adSlotBanner,
+  sidebar: styles.adSlotSidebar,
+  square: styles.adSlotSquare,
+};
 
 type AdSlotType = "sidebar" | "banner" | "square";
 
 interface AdSlotProps {
   type: AdSlotType;
 }
+
+const IS_DEV = process.env.NODE_ENV === "development";
 
 const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT!;
 
@@ -20,30 +29,43 @@ export default function AdSlot({ type }: AdSlotProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
     if (!mounted) return;
-    try {
-      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
-        {},
-      );
-    } catch (e) {
-      console.warn("AdSense error:", e);
-    }
+
+    const timer = setTimeout(() => {
+      try {
+        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
+          {},
+        );
+      } catch (e) {
+        console.warn("AdSense error:", e);
+      }
+    }, 100); // espera 100ms para que el DOM tenga dimensiones
+
+    return () => clearTimeout(timer);
   }, [mounted]);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <div
+        style={{
+          display: "block",
+          minWidth: type === "sidebar" ? "160px" : "100%",
+          minHeight:
+            type === "sidebar" ? "300px" : type === "banner" ? "90px" : "250px",
+        }}
+      />
+    );
+  }
 
   return (
     <ins
-      className="adsbygoogle"
+      className={`adsbygoogle ${slotClasses[type]}`}
       style={{ display: "block" }}
       data-ad-client={ADSENSE_CLIENT}
       data-ad-slot={ADSENSE_SLOTS[type]}
       data-ad-format="auto"
       data-full-width-responsive="true"
+      data-adtest={IS_DEV ? "on" : "off"}
     />
   );
 }

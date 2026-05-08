@@ -89,9 +89,9 @@ REGLAS IMPORTANTES:
 - Si te preguntan algo fuera de Hacienda CR, redirigí amablemente al tema
 
 FORMATO:
-- Respuestas cortas y directas (máximo 3 párrafos)
+- Respuestas claras y completas, nunca cortadas a la mitad
 - Usá listas numeradas para pasos o procedimientos
-- Terminá siempre con el enlace relevante de Hacienda si aplica`;
+- Si la respuesta es larga, estructurala con secciones claras`;
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
           },
           contents: geminiMessages,
           generationConfig: {
-            maxOutputTokens: 500,
+            maxOutputTokens: 1500,
             temperature: 0.4,
           },
           safetySettings: [

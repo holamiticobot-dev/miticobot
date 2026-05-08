@@ -237,3 +237,22 @@
     max-width: 300px;
   }
 }
+
+/* AdSense slots */
+.adSlotBanner {
+  min-width: 320px;
+  min-height: 50px;
+  width: 100%;
+}
+
+.adSlotSidebar {
+  min-width: 160px;
+  min-height: 300px;
+  width: 160px;
+}
+
+.adSlotSquare {
+  min-width: 250px;
+  min-height: 250px;
+  width: 300px;
+}

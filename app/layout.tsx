@@ -78,18 +78,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>
+      <body>
+        <Header />
+        <main>{children}</main>
+        <CookieBanner />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5500410681993417"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-      </head>
-      <body>
-        <Header />
-        <main>{children}</main>
-        <CookieBanner />
       </body>
     </html>
   );
