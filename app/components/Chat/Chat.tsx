@@ -14,22 +14,22 @@ const temas: Record<string, { label: string; intro: string }> = {
   d101: {
     label: "Declaración D-101",
     intro:
-      "Hola 👋 Veo que tenés dudas sobre la **Declaración D-101** (Impuesto sobre la Renta). Es la declaración anual que deben presentar personas físicas y jurídicas. El plazo vence el **15 de marzo** de cada año. ¿Qué necesitás saber?",
+      "Hola 👋 Veo que tenés dudas sobre la Declaración D-101 (Impuesto sobre la Renta). Es la declaración anual que deben presentar personas físicas y jurídicas. El plazo vence el 15 de marzo de cada año. ¿Qué necesitás saber?",
   },
   tributacion: {
     label: "Tributación Digital",
     intro:
-      "Hola 👋 Estás consultando sobre **Tributación Digital**, el portal oficial de Hacienda en hacienda.go.cr. Desde ahí podés presentar declaraciones, pagar impuestos y más. ¿En qué te puedo ayudar?",
+      "Hola 👋 Estás consultando sobre Tributación Digital, el portal oficial de Hacienda en hacienda.go.cr. Desde ahí podés presentar declaraciones, pagar impuestos y más. ¿En qué te puedo ayudar?",
   },
   factura: {
     label: "Factura Electrónica",
     intro:
-      "Hola 👋 Sobre **Factura Electrónica** — desde el 2018 es obligatoria en Costa Rica. Necesitás un sistema autorizado por Hacienda para emitirlas. ¿Tenés alguna duda específica?",
+      "Hola 👋 Sobre Factura Electrónica — desde el 2018 es obligatoria en Costa Rica. Necesitás un sistema autorizado por Hacienda para emitirlas. ¿Tenés alguna duda específica?",
   },
   pagos: {
     label: "Pagos y multas",
     intro:
-      "Hola 👋 Consultando sobre **Pagos y multas** de Hacienda. Podés pagar impuestos, ver deudas pendientes o consultar multas desde Tributación Digital. ¿Qué necesitás?",
+      "Hola 👋 Consultando sobre Pagos y multas de Hacienda. Podés pagar impuestos, ver deudas pendientes o consultar multas desde Tributación Digital. ¿Qué necesitás?",
   },
 };
 
@@ -60,7 +60,6 @@ const getTime = () =>
 export default function Chat() {
   const searchParams = useSearchParams();
   const tema = searchParams.get("tema") ?? "";
-  const temaInfo = temas[tema] ?? null;
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -99,7 +98,6 @@ export default function Chat() {
     setIsTyping(true);
 
     try {
-      // Convertir al formato que espera OpenAI
       const openaiMessages = updatedMessages
         .filter((m) => m.role === "user" || m.role === "bot")
         .map((m) => ({
@@ -123,7 +121,7 @@ export default function Chat() {
           time: getTime(),
         },
       ]);
-    } catch (error) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         {
@@ -140,22 +138,14 @@ export default function Chat() {
   const router = useRouter();
   const handleChip = (chipTema: string) => {
     setActiveChip(chipTema);
-    if (chipTema === "todos") {
-      router.push("/chat");
-    } else {
-      router.push(`/chat?tema=${chipTema}`);
-    }
+    router.push(chipTema === "todos" ? "/chat" : `/chat?tema=${chipTema}`);
   };
+
   return (
-    <div
-      style={{
-        background: "#f0ebe0",
-        height: "calc(100vh - 68px)",
-        overflow: "hidden",
-      }}
-    >
+    /* FIX 1: pageWrapper controla el alto total en móvil */
+    <div className={styles.pageWrapper} style={{ background: "#f0ebe0" }}>
       <div className={styles.chatPage}>
-        {/* Chat */}
+        {/* Chat principal */}
         <div className={styles.chatContainer}>
           {/* Header */}
           <div className={styles.chatHeader}>
@@ -184,24 +174,24 @@ export default function Chat() {
             </div>
           </div>
 
-          {/* Chips */}
-          {/*   <div className={styles.topicChips}>
-            {[
-              { key: "todos", label: "Todos los temas" },
-              { key: "d101", label: "D-101" },
-              { key: "tributacion", label: "Tributación Digital" },
-              { key: "factura", label: "Factura Electrónica" },
-              { key: "pagos", label: "Pagos y multas" },
-            ].map((chip) => (
-              <button
-                key={chip.key}
-                onClick={() => handleChip(chip.key)}
-                className={`${styles.topicChip} ${activeChip === chip.key ? styles.topicChipActive : ""}`}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div> */}
+          {/* FIX 2: banner móvil ADENTRO del chatContainer */}
+          <div className={styles.adBannerMobile}>
+            <div className={styles.adIcon}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M8 12.5c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2.5z"
+                  fill="#FAFAF7"
+                />
+                <circle cx="10.5" cy="11" r="1" fill="#2D5016" />
+                <circle cx="13.5" cy="11" r="1" fill="#2D5016" />
+              </svg>
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h4>¿Querés anunciarte aquí?</h4>
+              <p>Llegá a contadores y emprendedores ticos</p>
+            </div>
+            <button className={styles.adBannerBtn}>Contáctanos</button>
+          </div>
 
           {/* Mensajes */}
           <div className={styles.messages}>
@@ -211,7 +201,8 @@ export default function Chat() {
                   <div className={`${styles.msgAvatar} ${styles.msgAvatarBot}`}>
                     <BotIcon />
                   </div>
-                  <div>
+                  {/* FIX 3: msgBubbleWrapper — fix principal del texto cortado */}
+                  <div className={styles.msgBubbleWrapper}>
                     <div className={styles.msgBubbleBot}>{msg.text}</div>
                     <div className={styles.msgTime}>{msg.time}</div>
                   </div>
@@ -223,7 +214,8 @@ export default function Chat() {
                   >
                     <UserIcon />
                   </div>
-                  <div>
+                  {/* FIX 3: msgBubbleWrapper */}
+                  <div className={styles.msgBubbleWrapper}>
                     <div className={styles.msgBubbleUser}>{msg.text}</div>
                     <div className={`${styles.msgTime} ${styles.msgTimeRight}`}>
                       {msg.time}
@@ -280,13 +272,14 @@ export default function Chat() {
               MiTicoBot puede cometer errores. Verificá en hacienda.go.cr
             </p>
           </div>
+
           <div className={styles.disclaimer}>
             Servicio informativo. No reemplaza asesoría profesional contable o
             legal.
           </div>
         </div>
 
-        {/* Sidebar anuncio */}
+        {/* Sidebar — solo desktop */}
         <div className={styles.adCol}>
           <div className={styles.adSidebar}>
             <span className={styles.adTag}>Anuncio</span>
@@ -305,25 +298,6 @@ export default function Chat() {
             <button className={styles.adBtn}>Contáctanos</button>
           </div>
         </div>
-      </div>
-
-      {/* Banner móvil */}
-      <div className={styles.adBannerMobile}>
-        <div className={styles.adIcon}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M8 12.5c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2.5z"
-              fill="#FAFAF7"
-            />
-            <circle cx="10.5" cy="11" r="1" fill="#2D5016" />
-            <circle cx="13.5" cy="11" r="1" fill="#2D5016" />
-          </svg>
-        </div>
-        <div>
-          <h4>¿Querés anunciarte aquí?</h4>
-          <p>Llegá a contadores y emprendedores ticos</p>
-        </div>
-        <button className={styles.adBannerBtn}>Contáctanos</button>
       </div>
     </div>
   );
