@@ -91,8 +91,8 @@ export default function Chat() {
     const text = input.trim();
     if (!text) return;
 
-    const userMessage = { role: "user", text, time: getTime() };
-    const updatedMessages = [...messages, userMessage];
+    const userMessage: Message = { role: "user", text, time: getTime() };
+    const updatedMessages: Message[] = [...messages, userMessage];
 
     setMessages(updatedMessages);
     setInput("");
