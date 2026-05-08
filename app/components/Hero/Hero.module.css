@@ -12,14 +12,20 @@
 .hero {
   background: var(--crema);
   font-family: "DM Sans", sans-serif;
-  padding: 0 1.5rem;
+  /* ✅ FIX: padding vertical faltaba en desktop */
+  padding: 5rem 1.5rem 4rem;
   border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .inner {
   max-width: 860px;
   margin: 0 auto;
   text-align: center;
+  /* ✅ FIX: asegura que el inner ocupe el ancho disponible */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Badge de versión */
@@ -53,6 +59,9 @@
   color: var(--verde-selva);
   line-height: 1.15;
   margin-bottom: 1.25rem;
+  /* ✅ FIX: evita que el texto se quiebre raro en desktop */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .titleAccent {
@@ -151,8 +160,29 @@
   margin: 2.5rem auto 0;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* ✅ FIX: Desktop explícito — evita herencia de estilos móvil */
+@media (min-width: 769px) {
+  .hero {
+    padding: 5rem 2rem 4rem;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: auto;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
   .hero {
     padding: 2rem 1.25rem;
     border-radius: 0;

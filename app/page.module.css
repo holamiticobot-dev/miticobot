@@ -5,7 +5,18 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
-  align-items: center;
+  align-items: start;
+}
+
+/* FIX: ocultar sidebars en desktop hasta tener AdSense aprobado */
+.pageLayout > :first-child,
+.pageLayout > :last-child {
+  display: none;
+}
+
+/* FIX: Hero ocupa las 3 columnas cuando sidebars están ocultos */
+.pageLayout > :nth-child(2) {
+  grid-column: 1 / -1;
 }
 
 .bannerTop,
@@ -18,13 +29,17 @@
   .bannerBottom {
     display: block;
     padding: 1rem;
-    margin-right: 2rem;
   }
+
   .pageLayout {
     grid-template-columns: 1fr;
     margin: 0;
-    padding: 1rem;
+    padding: 0;
+    gap: 0;
+  }
 
-    gap: 1rem;
+  /* En móvil ya tiene grid de 1 columna, cancelar el span */
+  .pageLayout > :nth-child(2) {
+    grid-column: 1;
   }
 }

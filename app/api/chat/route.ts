@@ -192,21 +192,4 @@ export async function POST(req: NextRequest) {
   /* Chips */
 }
 {
-  /*   <div className={styles.topicChips}>
-            {[
-              { key: "todos", label: "Todos los temas" },
-              { key: "d101", label: "D-101" },
-              { key: "tributacion", label: "Tributación Digital" },
-              { key: "factura", label: "Factura Electrónica" },
-              { key: "pagos", label: "Pagos y multas" },
-            ].map((chip) => (
-              <button
-                key={chip.key}
-                onClick={() => handleChip(chip.key)}
-                className={`${styles.topicChip} ${activeChip === chip.key ? styles.topicChipActive : ""}`}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div> */
-}
+

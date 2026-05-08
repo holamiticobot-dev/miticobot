@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type AdSlotType = "sidebar" | "banner" | "square";
 
@@ -17,7 +17,14 @@ const ADSENSE_SLOTS: Record<AdSlotType, string> = {
 };
 
 export default function AdSlot({ type }: AdSlotProps) {
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push(
         {},
@@ -25,7 +32,9 @@ export default function AdSlot({ type }: AdSlotProps) {
     } catch (e) {
       console.warn("AdSense error:", e);
     }
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) return null;
 
   return (
     <ins

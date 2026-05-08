@@ -144,7 +144,7 @@ export default function Chat() {
   return (
     /* FIX 1: pageWrapper controla el alto total en móvil */
     <div className={styles.pageWrapper} style={{ background: "#f0ebe0" }}>
-       {/*    <div className={styles.topicChips}>
+      {/*    <div className={styles.topicChips}>
             {[
               { key: "todos", label: "Todos los temas" },
               { key: "d101", label: "D-101" },
@@ -161,7 +161,7 @@ export default function Chat() {
               </button>
             ))}
           </div>  */}
-}
+
       <div className={styles.chatPage}>
         {/* Chat principal */}
         <div className={styles.chatContainer}>
