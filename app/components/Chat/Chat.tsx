@@ -193,7 +193,7 @@ export default function Chat() {
           </div>
 
           {/* FIX 2: banner móvil ADENTRO del chatContainer */}
-          <div className={styles.adBannerMobile}>
+          {/*   <div className={styles.adBannerMobile}>
             <div className={styles.adIcon}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path
@@ -204,12 +204,12 @@ export default function Chat() {
                 <circle cx="13.5" cy="11" r="1" fill="#2D5016" />
               </svg>
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
+             <div style={{ flex: 1, minWidth: 0 }}>
               <h4>¿Querés anunciarte aquí?</h4>
               <p>Llegá a contadores y emprendedores ticos</p>
             </div>
-            <button className={styles.adBannerBtn}>Contáctanos</button>
-          </div>
+            <button className={styles.adBannerBtn}>Contáctanos</button> 
+          </div> */}
 
           {/* Mensajes */}
           <div className={styles.messages}>
