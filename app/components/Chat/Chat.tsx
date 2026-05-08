@@ -264,11 +264,7 @@ export default function Chat() {
                   }
                 }}
               />
-              <button
-                className={styles.sendBtn}
-                onClick={sendMessage}
-                disabled={isTyping}
-              >
+              <button className={styles.sendBtn} onClick={sendMessage}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"
