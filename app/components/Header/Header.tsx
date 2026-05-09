@@ -92,9 +92,9 @@ export default function Header() {
           {/*   <Link href="/hacienda" onClick={() => setMenuOpen(false)}>
             Hacienda CR
           </Link> */}
-          <Link href="/ayuda" onClick={() => setMenuOpen(false)}>
+          {/*   <Link href="/ayuda" onClick={() => setMenuOpen(false)}>
             Ayuda
-          </Link>
+          </Link> */}
           {/*   <div className={styles.mobileMenuCta}>
             <button className={styles.btnSecondary}>Iniciar sesión</button>
             <button className={styles.btnPrimary}>Comenzar gratis</button>
