@@ -89,9 +89,9 @@ export default function Header() {
           <Link href="/tramites" onClick={() => setMenuOpen(false)}>
             Trámites <span className={styles.badge}>Nuevo</span>
           </Link>
-          <Link href="/hacienda" onClick={() => setMenuOpen(false)}>
+          {/*   <Link href="/hacienda" onClick={() => setMenuOpen(false)}>
             Hacienda CR
-          </Link>
+          </Link> */}
           <Link href="/ayuda" onClick={() => setMenuOpen(false)}>
             Ayuda
           </Link>
