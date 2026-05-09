@@ -1,54 +1,63 @@
+/* page.module.css */
+
+.main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  background: #f5f0e8;
+}
+
+/* ── Layout con grid de 3 columnas ── */
 .pageLayout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  display: block; /* en vez de grid */
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
-  align-items: center;
+  align-items: start;
+  /*  box-sizing: border-box; */
+  /* width: 100%; */
 }
 
-.pageLayout:has(> :nth-child(3)) {
-  grid-template-columns: 160px 1fr 160px;
-}
-
+/* ── TEMPORAL: ocultar hasta aprobación AdSense ── */
+/* Cuando AdSense apruebe, borrás este bloque completo */
 .bannerTop,
 .bannerBottom {
   display: none;
 }
-/* FIX: ocultar sidebars en desktop hasta tener AdSense aprobado */
-.pageLayout > :first-child,
+
+/* .pageLayout > :first-child,
 .pageLayout > :last-child {
   display: none;
-}
-
-/* FIX: Hero ocupa las 3 columnas cuando sidebars están ocultos */
-/* .pageLayout > :nth-child(2) {
-  grid-column: 1 / -1;
 } */
 
-.bannerTop,
-.bannerBottom {
-  display: none;
+.pageLayout > :nth-child(2) {
+  grid-column: 1 / -1;
 }
+/* ── FIN bloque temporal ── */
 
+/* ── Móvil ── */
 @media (max-width: 768px) {
   .bannerTop,
   .bannerBottom {
     display: block;
-    padding: 1rem;
+    padding: 0;
   }
 
   .pageLayout {
     grid-template-columns: 1fr;
     margin: 0;
-    padding: 1rem;
-    gap: 1rem;
+    padding: 0;
+    gap: 0;
   }
 
-  .pageLayout > :nth-child(2) {
+  /* .pageLayout > :first-child,
+  .pageLayout > :last-child {
+    display: none;
+  } */
+
+  /* Cancelar el span de columnas en móvil */
+  /*  .pageLayout > :nth-child(2) {
     grid-column: 1;
-  }
+  } */
 }
-
-/* En móvil ya tiene grid de 1 columna, cancelar el span */
