@@ -60,31 +60,50 @@ const getTime = () =>
 export default function Chat() {
   const searchParams = useSearchParams();
   const tema = searchParams.get("tema") ?? "";
+  const router = useRouter();
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [activeChip, setActiveChip] = useState(tema || "todos");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const lastBotMsgRef = useRef<HTMLDivElement>(null);
+
+  // Mensaje inicial según tema
   useEffect(() => {
-    if (messages.length > 1) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      setMessages([
-        {
-          role: "bot",
-          text: "¡Hola! Soy MiTicoBot 👋 Estoy aquí para ayudarte con tus trámites de Hacienda Costa Rica. ¿En qué puedo ayudarte hoy?",
-          time: getTime(),
-        },
-      ]);
-      setActiveChip("todos");
-    }
+    const temaInfo = temas[tema];
+    const intro = temaInfo
+      ? temaInfo.intro
+      : "¡Hola! Soy MiTicoBot 👋 Estoy aquí para ayudarte con tus trámites de Hacienda Costa Rica. ¿En qué puedo ayudarte hoy?";
+    setMessages([{ role: "bot", text: intro, time: getTime() }]);
+    setActiveChip(tema || "todos");
   }, [tema]);
 
+  // Scroll al inicio de la última respuesta del bot
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
+    if (messages.length <= 1) return;
+    const lastMsg = messages[messages.length - 1];
+    if (lastMsg.role === "bot") {
+      setTimeout(() => {
+        lastBotMsgRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 50);
+    } else {
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    }
+  }, [messages]);
+
+  // Scroll al final mientras escribe
+  useEffect(() => {
+    if (isTyping) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isTyping]);
 
   const sendMessage = async () => {
     const text = input.trim();
@@ -135,33 +154,13 @@ export default function Chat() {
     }
   };
 
-  const router = useRouter();
   const handleChip = (chipTema: string) => {
     setActiveChip(chipTema);
     router.push(chipTema === "todos" ? "/chat" : `/chat?tema=${chipTema}`);
   };
 
   return (
-    /* FIX 1: pageWrapper controla el alto total en móvil */
     <div className={styles.pageWrapper} style={{ background: "#f0ebe0" }}>
-      {/*    <div className={styles.topicChips}>
-            {[
-              { key: "todos", label: "Todos los temas" },
-              { key: "d101", label: "D-101" },
-              { key: "tributacion", label: "Tributación Digital" },
-              { key: "factura", label: "Factura Electrónica" },
-              { key: "pagos", label: "Pagos y multas" },
-            ].map((chip) => (
-              <button
-                key={chip.key}
-                onClick={() => handleChip(chip.key)}
-                className={`${styles.topicChip} ${activeChip === chip.key ? styles.topicChipActive : ""}`}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>  */}
-
       <div className={styles.chatPage}>
         {/* Chat principal */}
         <div className={styles.chatContainer}>
@@ -192,34 +191,19 @@ export default function Chat() {
             </div>
           </div>
 
-          {/* FIX 2: banner móvil ADENTRO del chatContainer */}
-          {/*   <div className={styles.adBannerMobile}>
-            <div className={styles.adIcon}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M8 12.5c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2.5z"
-                  fill="#FAFAF7"
-                />
-                <circle cx="10.5" cy="11" r="1" fill="#2D5016" />
-                <circle cx="13.5" cy="11" r="1" fill="#2D5016" />
-              </svg>
-            </div>
-             <div style={{ flex: 1, minWidth: 0 }}>
-              <h4>¿Querés anunciarte aquí?</h4>
-              <p>Llegá a contadores y emprendedores ticos</p>
-            </div>
-            <button className={styles.adBannerBtn}>Contáctanos</button> 
-          </div> */}
-
           {/* Mensajes */}
           <div className={styles.messages}>
-            {messages.map((msg, i) =>
-              msg.role === "bot" ? (
-                <div key={i} className={styles.msgBot}>
+            {messages.map((msg, i) => {
+              const isLastBot = msg.role === "bot" && i === messages.length - 1;
+              return msg.role === "bot" ? (
+                <div
+                  key={i}
+                  className={styles.msgBot}
+                  ref={isLastBot ? lastBotMsgRef : null}
+                >
                   <div className={`${styles.msgAvatar} ${styles.msgAvatarBot}`}>
                     <BotIcon />
                   </div>
-                  {/* FIX 3: msgBubbleWrapper — fix principal del texto cortado */}
                   <div className={styles.msgBubbleWrapper}>
                     <div className={styles.msgBubbleBot}>{msg.text}</div>
                     <div className={styles.msgTime}>{msg.time}</div>
@@ -232,7 +216,6 @@ export default function Chat() {
                   >
                     <UserIcon />
                   </div>
-                  {/* FIX 3: msgBubbleWrapper */}
                   <div className={styles.msgBubbleWrapper}>
                     <div className={styles.msgBubbleUser}>{msg.text}</div>
                     <div className={`${styles.msgTime} ${styles.msgTimeRight}`}>
@@ -240,8 +223,8 @@ export default function Chat() {
                     </div>
                   </div>
                 </div>
-              ),
-            )}
+              );
+            })}
 
             {isTyping && (
               <div className={styles.msgBot}>
