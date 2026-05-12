@@ -10,10 +10,10 @@ export default function Home() {
 
   // false = sin anuncios (ahora)
   // true  = con anuncios (cuando AdSense apruebe)
-  const hasAds = true;
+  const hasAds = false;
 
   useEffect(() => {
-    setMounted(true);
+    setMounted(false);
   }, []);
 
   return (
