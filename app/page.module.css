@@ -6,7 +6,10 @@
   background: #f5f0e8;
 }
 
-/* ── DESKTOP: [sidebar 160px] [Hero] [sidebar 160px] ── */
+/* ══════════════════════════════════════
+   DESKTOP
+   [sidebar 160px] [Hero] [sidebar 160px]
+══════════════════════════════════════ */
 .pageLayout {
   width: 100%;
   max-width: 1100px;
@@ -19,17 +22,21 @@
   align-items: start;
 }
 
-/* Si no hay anuncios, Hero ocupa todo el ancho */
+/* hasAds = false: Hero es hijo único → ocupa las 3 columnas */
 .pageLayout > :only-child {
   grid-column: 1 / -1;
 }
 
-/* Banner móvil arriba — oculto en desktop siempre */
+/* Banner móvil — oculto en desktop */
 .bannerTop {
   display: none;
 }
 
-/* ── MÓVIL ── */
+/* ══════════════════════════════════════
+   MÓVIL
+   [Banner arriba 320x50]
+        [Hero]
+══════════════════════════════════════ */
 @media (max-width: 768px) {
   .pageLayout {
     grid-template-columns: 1fr;
@@ -38,7 +45,7 @@
     gap: 0;
   }
 
-  /* Hero ocupa todo el ancho en móvil */
+  /* Con o sin sidebars, Hero ocupa todo el ancho en móvil */
   .pageLayout > :only-child,
   .pageLayout > :nth-child(2) {
     grid-column: 1;
