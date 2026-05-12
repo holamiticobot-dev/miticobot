@@ -2,7 +2,7 @@
 
 .main {
   width: 100%;
-
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #f5f0e8;
@@ -10,13 +10,15 @@
 
 /* ── Layout con grid de 3 columnas ── */
 .pageLayout {
-  display: block; /* en vez de grid */
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  gap: 2rem;
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 0 2rem;
   align-items: start;
-  /*  box-sizing: border-box; */
-  /* width: 100%; */
+  box-sizing: border-box;
+  width: 100%;
 }
 
 /* ── TEMPORAL: ocultar hasta aprobación AdSense ── */
@@ -25,11 +27,9 @@
 .bannerBottom {
   display: none;
 }
-
-/* .pageLayout > :first-child,
-.pageLayout > :last-child {
-  display: none;
-} */
+.pageLayout > :nth-child(2) {
+  grid-column: 1 / -1;
+}
 
 .pageLayout > :nth-child(2) {
   grid-column: 1 / -1;
@@ -41,7 +41,9 @@
   .bannerTop,
   .bannerBottom {
     display: block;
-    padding: 0;
+    padding: 0.75rem;
+    /* TEMPORAL: ocultar hasta AdSense */
+    display: none;
   }
 
   .pageLayout {
@@ -51,10 +53,9 @@
     gap: 0;
   }
 
-  /* .pageLayout > :first-child,
-  .pageLayout > :last-child {
-    display: none;
-  } */
+  .pageLayout > :nth-child(2) {
+    grid-column: 1;
+  }
 
   /* Cancelar el span de columnas en móvil */
   /*  .pageLayout > :nth-child(2) {
