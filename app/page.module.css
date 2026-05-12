@@ -8,32 +8,66 @@
   background: #f5f0e8;
 }
 
-/* ── Layout base — Hero siempre ocupa todo el ancho ── */
+/* ══════════════════════════════════════
+   DESKTOP
+   [sidebar 160px] | [Hero] | [sidebar 160px]
+   Cuando hasAds = false, solo hay Hero
+   y el grid lo maneja automáticamente
+══════════════════════════════════════ */
 .pageLayout {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
   box-sizing: border-box;
-
-  /* Grid listo para cuando lleguen los sidebars */
   display: grid;
-  grid-template-columns: 1fr; /* Solo Hero por ahora */
-  gap: 2rem;
-  padding: 0;
+  grid-template-columns: 160px 1fr 160px;
+  gap: 1.5rem;
   align-items: start;
 }
 
-/* Banners ocultos por ahora */
+/* Cuando hasAds = false el grid solo tiene 1 hijo (Hero)
+   así que ocupa las 3 columnas automáticamente */
+.pageLayout > :only-child {
+  grid-column: 1 / -1;
+}
+
+/* Banners arriba/abajo — ocultos en desktop siempre */
 .bannerTop,
 .bannerBottom {
   display: none;
 }
 
-/* ── Móvil ── */
+/* ══════════════════════════════════════
+   MÓVIL
+   [Banner 320x50]
+   [Hero]
+   [Banner 320x50]
+══════════════════════════════════════ */
 @media (max-width: 768px) {
   .pageLayout {
+    grid-template-columns: 1fr;
     margin: 0;
     padding: 0;
     gap: 0;
+  }
+
+  /* Hero ocupa todo en móvil */
+  .pageLayout > :only-child,
+  .pageLayout > :nth-child(2) {
+    grid-column: 1;
+  }
+
+  /* Banners arriba/abajo visibles en móvil cuando hasAds = true */
+  .bannerTop,
+  .bannerBottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 50px;
+    max-height: 100px;
+    background: #f5f0e8;
+    overflow: hidden;
   }
 }
