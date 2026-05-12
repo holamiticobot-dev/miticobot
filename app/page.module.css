@@ -8,57 +8,32 @@
   background: #f5f0e8;
 }
 
-/* ── Layout con grid de 3 columnas ── */
+/* ── Layout base — Hero siempre ocupa todo el ancho ── */
 .pageLayout {
-  display: grid;
-  grid-template-columns: 160px 1fr 160px;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-  align-items: start;
-  box-sizing: border-box;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  /* Grid listo para cuando lleguen los sidebars */
+  display: grid;
+  grid-template-columns: 1fr; /* Solo Hero por ahora */
+  gap: 2rem;
+  padding: 0;
+  align-items: start;
 }
 
-/* ── TEMPORAL: ocultar hasta aprobación AdSense ── */
-/* Cuando AdSense apruebe, borrás este bloque completo */
+/* Banners ocultos por ahora */
 .bannerTop,
 .bannerBottom {
   display: none;
 }
-.pageLayout > :nth-child(2) {
-  grid-column: 1 / -1;
-}
-
-.pageLayout > :nth-child(2) {
-  grid-column: 1 / -1;
-}
-/* ── FIN bloque temporal ── */
 
 /* ── Móvil ── */
 @media (max-width: 768px) {
-  .bannerTop,
-  .bannerBottom {
-    display: block;
-    padding: 0.75rem;
-    /* TEMPORAL: ocultar hasta AdSense */
-    display: none;
-  }
-
   .pageLayout {
-    grid-template-columns: 1fr;
     margin: 0;
     padding: 0;
     gap: 0;
   }
-
-  .pageLayout > :nth-child(2) {
-    grid-column: 1;
-  }
-
-  /* Cancelar el span de columnas en móvil */
-  /*  .pageLayout > :nth-child(2) {
-    grid-column: 1;
-  } */
 }
