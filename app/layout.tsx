@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
 import Script from "next/script";
 
@@ -34,9 +33,7 @@ export const metadata: Metadata = {
   authors: [{ name: "MiTicoBot" }],
   creator: "MiTicoBot",
   metadataBase: new URL("https://www.miticobot.com"),
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_CR",
@@ -82,13 +79,22 @@ export default function RootLayout({
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`
-          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-TQN77VWJ');
-        `}
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TQN77VWJ');
+          `}
         </Script>
+
+        {/* ─── AdSense: descomentá cuando hasAds = true ───
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5500410681993417"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        */}
       </head>
       <body>
         <noscript>
@@ -97,17 +103,11 @@ export default function RootLayout({
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
+          />
         </noscript>
         <Header />
-        <main>{children}</main>
+        {children}
         <CookieBanner />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5500410681993417"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
