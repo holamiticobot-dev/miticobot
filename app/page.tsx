@@ -7,7 +7,10 @@ import Hero from "./components/Hero";
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-  const hasAds = false; // cambiar a true cuando AdSense apruebe
+
+  // false = sin anuncios (ahora)
+  // true  = con anuncios (cuando AdSense apruebe)
+  const hasAds = false;
 
   useEffect(() => {
     setMounted(true);
@@ -22,19 +25,12 @@ export default function Home() {
         </div>
       )}
 
-      {/* Grid: sidebar | Hero | sidebar en desktop */}
+      {/* Desktop: [sidebar] [Hero] [sidebar] */}
       <div className={styles.pageLayout}>
         {mounted && hasAds && <AdSlot type="sidebar" />}
         <Hero />
         {mounted && hasAds && <AdSlot type="sidebar" />}
       </div>
-
-      {/* Banner abajo — SOLO MÓVIL — NO hay banner debajo del footer */}
-      {mounted && hasAds && (
-        <div className={styles.bannerBottom}>
-          <AdSlot type="banner" />
-        </div>
-      )}
 
       <Footer />
     </main>
