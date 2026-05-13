@@ -95,6 +95,11 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-TQN77VWJ');
           `}
         </Script>
+        {/* Google Analytics 4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-MJV2XWECCY"
+          strategy="afterInteractive"
+        />
 
         {/* ─── AdSense: descomentá cuando hasAds = true ───
         <Script
@@ -108,7 +113,7 @@ export default function RootLayout({
       <body>
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?G-MJV2XWECCY"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TQN77VWJ"
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
