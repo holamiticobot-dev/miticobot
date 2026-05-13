@@ -32,8 +32,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "MiTicoBot" }],
   creator: "MiTicoBot",
+  publisher: "MiTicoBot",
   metadataBase: new URL("https://www.miticobot.com"),
   alternates: { canonical: "/" },
+
+  // Open Graph (Facebook, LinkedIn, WhatsApp)
   openGraph: {
     type: "website",
     locale: "es_CR",
@@ -44,20 +47,25 @@ export const metadata: Metadata = {
       "Resolvé tus dudas sobre trámites de Hacienda CR gratis. D-101, IVA, factura electrónica, TRIBU-CR y más.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/img.png",
         width: 1200,
         height: 630,
         alt: "MiTicoBot — Asistente de Hacienda Costa Rica",
       },
     ],
   },
+
+  // Twitter/X
   twitter: {
     card: "summary_large_image",
     title: "MiTicoBot — Asistente de trámites de Hacienda Costa Rica",
     description:
       "Resolvé tus dudas sobre trámites de Hacienda CR gratis. D-101, IVA, factura electrónica, TRIBU-CR y más.",
-    images: ["/og-image.png"],
+    images: ["/img.png"],
+    creator: "@MiTicoBot", // opcional si tienes cuenta en X/Twitter
   },
+
+  // Robots y Google
   robots: {
     index: true,
     follow: true,
@@ -66,6 +74,7 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
 };
