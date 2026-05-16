@@ -11,7 +11,7 @@ export default function Hero() {
         {/* Badge de versión */}
         <div className={styles.versionBadge}>
           <span className={styles.versionDot} />
-          Versión 1.0 — Ahora disponible
+          Versión 1.2 — Ahora disponible
         </div>
 
         {/* Título */}

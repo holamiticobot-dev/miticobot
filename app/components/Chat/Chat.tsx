@@ -31,6 +31,11 @@ const temas: Record<string, { label: string; intro: string }> = {
     intro:
       "Hola 👋 Consultando sobre Pagos y multas de Hacienda. Podés pagar impuestos, ver deudas pendientes o consultar multas desde Tributación Digital. ¿Qué necesitás?",
   },
+  sicop: {
+    label: "SICOP",
+    intro:
+      "Hola 👋 Estás consultando sobre SICOP, el Sistema Integrado de Compras Públicas de Costa Rica. Podés registrarte como proveedor, consultar licitaciones activas y participar en compras del Estado en sicop.go.cr. ¿En qué te puedo ayudar?",
+  },
 };
 
 const BotIcon = () => (
