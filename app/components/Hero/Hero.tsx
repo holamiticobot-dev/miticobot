@@ -22,9 +22,10 @@ export default function Hero() {
 
         {/* Descripción */}
         <p className={styles.desc}>
-          MiTicoBot te ayuda a resolver dudas sobre Tributación Digital,
-          declaraciones, pagos y más trámites de Hacienda Costa Rica. Servicio
-          informativo. No reemplaza asesoría profesional contable o legal.
+          MiTicoBot te ayuda a resolver dudas sobre trámites de Hacienda Costa
+          Rica y compras públicas con SICOP — Tributación Digital,
+          declaraciones, pagos, licitaciones y más. Servicio informativo. No
+          reemplaza asesoría profesional contable o legal.
         </p>
 
         {/* Botones */}
