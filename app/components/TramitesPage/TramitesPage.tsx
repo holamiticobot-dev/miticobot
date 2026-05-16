@@ -45,48 +45,48 @@ export default function TramitesPage() {
             </div>
             <div className={styles.cardArrow}>→</div>
           </Link>
+          <Link href="/chat?tema=sicop" className={styles.card}>
+            <span className={styles.badgeNew}>Disponible</span>
+            <div className={styles.cardIcon}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
+                  stroke="#F5F0E8"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <rect
+                  x="9"
+                  y="3"
+                  width="6"
+                  height="4"
+                  rx="1"
+                  stroke="#F5F0E8"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M9 12h6M9 16h4"
+                  stroke="#F5F0E8"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </div>
+            <h3>SICOP</h3>
+            <p>
+              Sistema Integrado de Compras Públicas — licitaciones, registro de
+              proveedores y contrataciones del Estado.
+            </p>
+            <div className={styles.cardChips}>
+              <span className={styles.chip}>Registro proveedor</span>
+              <span className={styles.chip}>Licitaciones</span>
+              <span className={styles.chip}>Compras públicas</span>
+              <span className={styles.chip}>Contratos</span>
+            </div>
+            <div className={styles.cardArrow}>→</div>
+          </Link>
         </div>
         {/* SICOP */}
-        <Link href="/chat?tema=sicop" className={styles.card}>
-          <span className={styles.badgeNew}>Disponible</span>
-          <div className={styles.cardIcon}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"
-                stroke="#F5F0E8"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-              <rect
-                x="9"
-                y="3"
-                width="6"
-                height="4"
-                rx="1"
-                stroke="#F5F0E8"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M9 12h6M9 16h4"
-                stroke="#F5F0E8"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-          <h3>SICOP</h3>
-          <p>
-            Sistema Integrado de Compras Públicas — licitaciones, registro de
-            proveedores y contrataciones del Estado.
-          </p>
-          <div className={styles.cardChips}>
-            <span className={styles.chip}>Registro proveedor</span>
-            <span className={styles.chip}>Licitaciones</span>
-            <span className={styles.chip}>Compras públicas</span>
-            <span className={styles.chip}>Contratos</span>
-          </div>
-          <div className={styles.cardArrow}>→</div>
-        </Link>
 
         {/* Próximamente */}
         {/*
