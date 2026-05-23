@@ -35,8 +35,6 @@ export const metadata: Metadata = {
   publisher: "MiTicoBot",
   metadataBase: new URL("https://www.miticobot.com"),
   alternates: { canonical: "/" },
-
-  // Open Graph (Facebook, LinkedIn, WhatsApp)
   openGraph: {
     type: "website",
     locale: "es_CR",
@@ -54,18 +52,14 @@ export const metadata: Metadata = {
       },
     ],
   },
-
-  // Twitter/X
   twitter: {
     card: "summary_large_image",
     title: "MiTicoBot — Asistente de trámites de Hacienda Costa Rica",
     description:
       "Resolvé tus dudas sobre trámites de Hacienda CR gratis. D-101, IVA, factura electrónica, TRIBU-CR y más.",
     images: ["/img.png"],
-    creator: "@MiTicoBot", // opcional si tienes cuenta en X/Twitter
+    creator: "@MiTicoBot",
   },
-
-  // Robots y Google
   robots: {
     index: true,
     follow: true,
@@ -95,11 +89,20 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-TQN77VWJ');
           `}
         </Script>
+
         {/* Google Analytics 4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-MJV2XWECCY"
           strategy="afterInteractive"
         />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MJV2XWECCY');
+          `}
+        </Script>
 
         {/* ─── AdSense: descomentá cuando hasAds = true ───
         <Script
