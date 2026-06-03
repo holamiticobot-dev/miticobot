@@ -118,7 +118,7 @@ export default function Footer() {
           &copy; {year} MiTicoBot. Todos los derechos reservados.
         </span>
         <span className={styles.madeBy}>
-          Hecho con <span className={styles.heart}>♥</span> en Costa Rica por{" "}
+          Hecho con en Costa Rica por{" "}
           <a
             href="https://www.rodricode.com/"
             target="_blank"
