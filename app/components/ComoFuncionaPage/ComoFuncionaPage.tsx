@@ -46,6 +46,22 @@ export default function ComoFuncionaPage() {
               </div>
             ))}
           </div>
+          <div className={styles.steps}>
+            <div className={styles.step}>
+              <div className={styles.stepContent}>
+                <p>
+                  MiTicoBot te ofrece 15 consultas gratuitas al día. De esta
+                  forma podés resolver tus dudas de manera rápida y sencilla sin
+                  costo inicial.
+                </p>
+                <p>
+                  Muy pronto lanzaremos un plan de pago ilimitado, pensado para
+                  quienes necesitan hacer más consultas sin restricciones y con
+                  acceso continuo a todas las funciones avanzadas de TicoBot.
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* Disclaimer */}
           <div className={styles.disclaimer}>
