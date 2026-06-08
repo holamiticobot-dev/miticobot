@@ -4,10 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./Chat.module.css";
 
+const LIMITE_DIARIO = 15;
+const STORAGE_KEY = "miticobot_consultas";
+
 type Message = {
   role: "bot" | "user";
   text: string;
   time: string;
+};
+
+type ConsultasData = {
+  count: number;
+  date: string;
 };
 
 const temas: Record<string, { label: string; intro: string }> = {
@@ -62,6 +70,25 @@ const getTime = () =>
     minute: "2-digit",
   });
 
+const getToday = () => new Date().toISOString().split("T")[0];
+
+const getConsultas = (): ConsultasData => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { count: 0, date: getToday() };
+    const data: ConsultasData = JSON.parse(raw);
+    // Si es un día nuevo, reiniciar contador
+    if (data.date !== getToday()) return { count: 0, date: getToday() };
+    return data;
+  } catch {
+    return { count: 0, date: getToday() };
+  }
+};
+
+const saveConsultas = (data: ConsultasData) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+};
+
 export default function Chat() {
   const searchParams = useSearchParams();
   const tema = searchParams.get("tema") ?? "";
@@ -71,9 +98,18 @@ export default function Chat() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [activeChip, setActiveChip] = useState(tema || "todos");
+  const [consultasHoy, setConsultasHoy] = useState(0);
+  const [limitAlcanzado, setLimitAlcanzado] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const lastBotMsgRef = useRef<HTMLDivElement>(null);
+
+  // Cargar contador al iniciar
+  useEffect(() => {
+    const data = getConsultas();
+    setConsultasHoy(data.count);
+    setLimitAlcanzado(data.count >= LIMITE_DIARIO);
+  }, []);
 
   // Mensaje inicial según tema
   useEffect(() => {
@@ -103,16 +139,32 @@ export default function Chat() {
     }
   }, [messages]);
 
-  // Scroll al final mientras escribe
   useEffect(() => {
     if (isTyping) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [isTyping]);
 
+  const consultasRestantes = LIMITE_DIARIO - consultasHoy;
+
   const sendMessage = async () => {
     const text = input.trim();
-    if (!text) return;
+    if (!text || limitAlcanzado) return;
+
+    // Verificar límite antes de enviar
+    const dataActual = getConsultas();
+    if (dataActual.count >= LIMITE_DIARIO) {
+      setLimitAlcanzado(true);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: "🚫 Llegaste al límite de 15 consultas gratuitas por hoy. El contador se reinicia mañana automáticamente. ¡Hasta mañana! 😊",
+          time: getTime(),
+        },
+      ]);
+      return;
+    }
 
     const userMessage: Message = { role: "user", text, time: getTime() };
     const updatedMessages: Message[] = [...messages, userMessage];
@@ -120,6 +172,12 @@ export default function Chat() {
     setMessages(updatedMessages);
     setInput("");
     setIsTyping(true);
+
+    // Incrementar contador
+    const nuevaData = { count: dataActual.count + 1, date: getToday() };
+    saveConsultas(nuevaData);
+    setConsultasHoy(nuevaData.count);
+    if (nuevaData.count >= LIMITE_DIARIO) setLimitAlcanzado(true);
 
     try {
       const openaiMessages = updatedMessages
@@ -137,11 +195,23 @@ export default function Chat() {
 
       const data = await res.json();
 
+      const botReply =
+        data.reply ?? "No pude procesar tu consulta. Intentá de nuevo.";
+
+      // Agregar aviso cuando quedan pocas consultas
+      const restantes = LIMITE_DIARIO - nuevaData.count;
+      const avisoRestantes =
+        restantes === 3
+          ? "\n\n⚠️ *Te quedan 3 consultas gratuitas por hoy.*"
+          : restantes === 1
+            ? "\n\n⚠️ *Esta es tu última consulta gratuita de hoy.*"
+            : "";
+
       setMessages((prev) => [
         ...prev,
         {
           role: "bot",
-          text: data.reply ?? "No pude procesar tu consulta. Intentá de nuevo.",
+          text: botReply + avisoRestantes,
           time: getTime(),
         },
       ]);
@@ -167,7 +237,6 @@ export default function Chat() {
   return (
     <div className={styles.pageWrapper} style={{ background: "#f0ebe0" }}>
       <div className={styles.chatPage}>
-        {/* Chat principal */}
         <div className={styles.chatContainer}>
           {/* Header */}
           <div className={styles.chatHeader}>
@@ -194,6 +263,14 @@ export default function Chat() {
               <div className={styles.statusDot} />
               <span className={styles.statusText}>En línea</span>
             </div>
+            {/* Contador de consultas */}
+            {consultasHoy > 0 && (
+              <div className={styles.consultasCounter}>
+                <span>
+                  {consultasRestantes}/{LIMITE_DIARIO}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Mensajes */}
@@ -248,35 +325,46 @@ export default function Chat() {
 
           {/* Input */}
           <div className={styles.chatInputArea}>
-            <div className={styles.inputRow}>
-              <textarea
-                className={styles.chatTextarea}
-                placeholder="Escribí tu consulta sobre trámites de Hacienda..."
-                rows={1}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                  }
-                }}
-              />
-              <button className={styles.sendBtn} onClick={sendMessage}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"
-                    stroke="#F5F0E8"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+            {limitAlcanzado ? (
+              <div className={styles.limiteBloqueado}>
+                <p>
+                  🚫 Límite diario alcanzado. Volvé mañana para más consultas
+                  gratuitas.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className={styles.inputRow}>
+                  <textarea
+                    className={styles.chatTextarea}
+                    placeholder="Escribí tu consulta sobre trámites de Hacienda..."
+                    rows={1}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                      }
+                    }}
                   />
-                </svg>
-              </button>
-            </div>
-            <p className={styles.inputHint}>
-              MiTicoBot puede cometer errores. Verificá en hacienda.go.cr
-            </p>
+                  <button className={styles.sendBtn} onClick={sendMessage}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"
+                        stroke="#F5F0E8"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <p className={styles.inputHint}>
+                  MiTicoBot puede cometer errores. Verificá en hacienda.go.cr
+                </p>
+              </>
+            )}
           </div>
 
           <div className={styles.disclaimer}>
@@ -285,7 +373,7 @@ export default function Chat() {
           </div>
         </div>
 
-        {/* Sidebar — solo desktop */}
+        {/* Sidebar */}
         <div className={styles.adCol}>
           <div className={styles.adSidebar}>
             <span className={styles.adTag}>Anuncio</span>
