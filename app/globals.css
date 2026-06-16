@@ -1,4 +1,8 @@
 /* Base compartida */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 .adTag {
   position: absolute;
   top: 4px;
