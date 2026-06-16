@@ -73,9 +73,7 @@ export default function ContactPage() {
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           from_name: formData.nombre,
-          from_email: formData.correo,
           message: formData.mensaje,
-          to_email: "servicio@rodricode.com",
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
